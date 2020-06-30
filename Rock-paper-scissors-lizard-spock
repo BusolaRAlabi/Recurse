@@ -1,0 +1,90 @@
+
+"""
+GAME: Rock-paper-scissors-lizard-Spock
+"""
+import random
+# The key idea of this program is to equate the strings
+# "rock", "paper", "scissors", "lizard", "Spock" to numbers as follows:
+
+# 0 - rock
+# 1 - Spock
+# 2 - paper
+# 3 - lizard
+# 4 - scissors
+
+#In this game, there are two players, you, the user, and the computer.
+
+# Helper functions
+
+def name_to_number(name):
+    """
+    Given string 'name' as input (rock-Spock-paper-lizard-scissors)
+    and returns integer (0-1-2-3-4)
+    """
+    
+    if name =="rock":
+        return 0
+    elif name == "Spock":
+        return 1
+    elif name == "paper":
+        return 2
+    elif name == "lizard":
+        return 3
+    elif name == "scissors":
+        return 4
+    else:
+        return "try another name from list;" + " scissors, rock, paper, lizard, Spock. "
+        
+#print(name_to_number("scissors"))
+
+def number_to_name(number):
+    """
+    Given integer 'number' as input (0-1-2-3-4)
+    and returns string name (rock-Spock-paper-lizard-scissors)
+    """
+    if number == 0: 
+        return "rock"
+    elif number == 1:
+        return "Spock"
+    elif number == 2:
+        return "paper"
+    elif number == 3:
+        return "lizard"
+    elif number == 4:
+        return "scissors"
+    else:
+        return "try another number from range;" + " zero to four"
+ 
+#print(number_to_name(3)) 
+
+#MAIN FUNCTION
+
+def rpsls(player_choice):
+    """
+    First takes players input (rock-Spock-paper-lizard-scissors) 
+    the returns nunber associated with input (integer between 0 and 5).
+    Then, it takes computer randomly generated input (integer between 0 and 5)
+    and returns string name (rock-Spock-paper-lizard-scissors)
+    Then determines and prints out winner
+    """ 
+    print()
+    print ("The player chose " + player_choice)
+    player_number=name_to_number(player_choice)        
+    comp_number=random.randrange (0,5)
+    print ("The computer chose " + (number_to_name(comp_number)))
+    difference = (player_number-comp_number)%5
+    if difference == 0:
+        print ("it's a tie game!")
+    elif difference == 1 or difference == 2:
+        print ("player wins!")
+    elif difference == 3 or difference == 4:
+        print ("computer wins!")
+    else:
+        print ("error!")  
+    pass
+
+rpsls("rock")
+rpsls("Spock")
+rpsls("paper")
+rpsls("lizard")
+rpsls("scissors")
