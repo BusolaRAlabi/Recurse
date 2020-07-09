@@ -1,12 +1,10 @@
 '''
 for loop that takes the last 2 values of a list and sums them up for n number of iterations
 '''
-n=list(range(1,21))
 fib=[0,1]
-for number in n:
+for number in range(1,21):
     last_number =fib[-1]
     penultimate_number =fib[-2]
     add =last_number+ penultimate_number
     append= fib.append(add)
-    n=+1
     print (fib)
