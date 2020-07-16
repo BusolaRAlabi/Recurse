@@ -1,0 +1,198 @@
+"""
+Project for Week 4 of "Python Data Representations".
+Find differences in file contents.
+
+Be sure to read the project description page for further information
+about the expected behavior of the program.
+"""
+IDENTICAL = -1
+
+def singleline_diff(line1, line2):
+    """
+    Inputs:
+      line1 - first single line string
+      line2 - second single line string
+    Output:
+      Returns the index where the first difference between
+      line1 and line2 occurs.
+
+      Returns IDENTICAL if the two lines are the same.
+    """
+    if line1 == line2:
+        return IDENTICAL
+    else:
+        l1_len = len(line1)
+        l2_len = len(line2)
+         
+        if l1_len == l2_len:
+            for index in range(l2_len):
+                if line1[index] == line2[index]:
+                    pass
+                else:
+                    final = index
+                    return  final
+                
+            
+                
+        elif l1_len < l2_len:
+            if l1_len > 0:
+                for index in range(l1_len):
+                    if line1[index] == line2[index]:
+                        final = l1_len
+                    else:
+                        final = index
+                        return  final
+            else:
+                final = l1_len
+                    
+            
+                
+        elif l1_len > l2_len:
+            if l2_len > 0:
+                for index in range(l2_len):
+                    if line1[index] == line2[index]:   
+                        final = l1_len-1
+                    else:
+                        final = index
+                        return final
+            else:
+                final = l2_len
+             
+    return final
+
+  
+def singleline_diff_format(line1, line2, idx):
+    """
+    Inputs:
+      line1 - first single line string
+      line2 - second single line string
+      idx   - index at which to indicate difference
+    Output:
+      Returns a three line formatted string showing the location
+      of the first difference between line1 and line2.
+
+      If either input line contains a newline or carriage return,
+      then returns an empty string.
+
+      If idx is not a valid index, then returns an empty string.
+    """
+    if "\r" in line1 or "\r" in line2:
+        return " "
+    elif "\n" in line1 or "\n" in line2:
+        return " "
+    length = (len(line1), len(line2))
+    if idx < 0:
+        return ''
+    if idx > min(length):
+        return ''
+    else:
+        #mun = singleline_diff(line1, line2)
+        
+        first = (line1) 
+        
+        second = ("=")*(idx) + "^" 
+        
+        third = line2
+        
+        alltog = (first) + "\n" + (second) + "\n"  + (third) + "\n"
+        
+    return alltog
+          
+def multiline_diff(lines1, lines2):
+    """
+    Inputs:
+      lines1 - list of single line strings
+      lines2 - list of single line strings
+    Output:
+      Returns a tuple containing the line number (starting from 0) and
+      the index in that line where the first difference between lines1
+      and lines2 occurs.
+
+      Returns (IDENTICAL, IDENTICAL) if the two lists are the same.
+    """
+    
+    if lines1 == lines2:
+        return(IDENTICAL, IDENTICAL)
+    else:
+        length = (len(lines1), len(lines2))
+        min_legn = min(length)
+        if (len(lines1)) == (len(lines2)):
+            for index in range(min_legn):
+                response = singleline_diff(lines1[index], lines2[index])
+                if response != -1:
+                    tup = (index, response)
+                    return tup
+        else:
+            tup = (min_legn, 0)
+            return tup
+            
+    return tup
+
+def get_file_lines(filename):
+    """
+    Inputs:
+      filename - name of file to read
+    Output:
+      Returns a list of lines from the file named filename.  Each
+      line will be a single line string with no newline ('\n') or
+      return ('\r') characters.
+
+      If the file does not exist or is not readable, then the
+      behavior of this function is undefined.
+    """
+    linest = []
+    file = open(filename, "rt")
+    for line in file:
+        if "\r" in line: 
+            no_r = line.replace("\r", "")
+            linest.append(no_r)
+        if "\n" in line:
+            no_n = line.replace("\n", "")
+            linest.append(no_n)
+        else:
+            linest.append(line)
+    return linest               
+
+def file_diff_format(filename1, filename2):
+    """
+    Inputs:
+      filename1 - name of first file
+      filename2 - name of second file
+    Output:
+      Returns a four line string showing the location of the first
+      difference between the two files named by the inputs.
+
+      If the files are identical, the function instead returns the
+      string "No differences\n".
+
+      If either file does not exist or is not readable, then the
+      behavior of this function is undefined.
+    """
+    file1 = get_file_lines(filename1)
+    file2 = get_file_lines(filename2)
+    multi_li_diff = multiline_diff(file1, file2)
+    if multi_li_diff == (-1, -1):
+        return "No differences" + "\n"
+    else:
+        index = "Line" + " " + str(multi_li_diff[0]) + ":"
+        mul_zero = multi_li_diff[0]
+        mul_one = multi_li_diff[1]
+    
+        final_line = (singleline_diff_format(file1[mul_zero], file2[mul_zero], mul_one))
+    
+        return (index) + "\n" + (final_line)
+
+
+
+        
+
+    
+        
+    
+       
+    
+    
+
+
+
+
